@@ -15,7 +15,7 @@ public class GardenTest {
         //given
         Snake snake = mock(Snake.class);
         FoodFactory foodFactory = mock(FoodFactory.class);
-        Garden garden = new Garden(snake, foodFactory);
+        Garden garden = new Garden(snake, snake, foodFactory);
 
         doReturn(true).when(snake).inBounds();
         doReturn(false).when(snake).eatsSelf();
@@ -33,7 +33,7 @@ public class GardenTest {
         //given
         Snake snake = mock(Snake.class);
         FoodFactory foodFactory = mock(FoodFactory.class);
-        Garden garden = new Garden(snake, foodFactory);
+        Garden garden = new Garden(snake, snake, foodFactory);
         when(foodFactory.newInstance()).thenReturn(mock(Food.class));
 
         //when

@@ -12,14 +12,21 @@ public class Garden {
     private final Snake snake;
     private final FoodFactory foodFactory;
     private Food food;
+    private final Snake aiSnake;
 
-    public Garden(Snake snake, FoodFactory foodFactory) {
+    public Garden(Snake snake, Snake aiSnake, FoodFactory foodFactory) throws InterruptedException {
         this.snake = snake;
         this.foodFactory = foodFactory;
+        this.aiSnake = aiSnake;
+
     }
 
     public Snake getSnake() {
         return snake;
+    }
+
+    public Snake getAiSnake() {
+        return aiSnake;
     }
 
     public Food getFood() {
@@ -31,8 +38,8 @@ public class Garden {
      *
      * @return true if the snake is still alive, otherwise false.
      */
-    public boolean advance() {
-        if (moveSnake()) {
+    public boolean advance(Snake snake) {
+        if (moveSnake(snake)) {
             createFoodIfNecessary();
             return true;
         }
@@ -44,7 +51,7 @@ public class Garden {
      *
      * @return true if the Snake is still alive, otherwise false.
      */
-    boolean moveSnake() {
+    boolean moveSnake(Snake snake) {
         snake.move();
 
         //if collides with wall or self
@@ -59,6 +66,7 @@ public class Garden {
             //remove food
             food = null;
         }
+
         return true;
     }
 

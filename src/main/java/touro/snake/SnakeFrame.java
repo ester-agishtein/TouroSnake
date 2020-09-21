@@ -2,12 +2,15 @@ package touro.snake;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class SnakeFrame extends JFrame {
 
     public SnakeFrame(
             GardenView gardenView,
-            SnakeKeyListener snakeKeyListener
+            SnakeKeyListener snakeKeyListener,
+            AIKeyListener aiKeyListener
+
     ) throws HeadlessException {
         super();
 
@@ -18,5 +21,6 @@ public class SnakeFrame extends JFrame {
 
         add(gardenView, BorderLayout.CENTER);
         addKeyListener(snakeKeyListener);
+        addKeyListener(aiKeyListener);
     }
 }
