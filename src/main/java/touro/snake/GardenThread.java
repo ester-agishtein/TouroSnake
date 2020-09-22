@@ -22,8 +22,8 @@ public class GardenThread extends Thread {
             try {
                 gardenView.repaint();
                 garden.advance(garden.getAiSnake());
-                AIKeyListener aiKeyListener = new AIKeyListener(garden.getAiSnake());
-                aiKeyListener.moveSelf(garden.getAiSnake());
+                AISnakeCreator aiSnakeCreator = new AISnakeCreator(garden.getAiSnake());
+                aiSnakeCreator.moveSelf(garden.getAiSnake());
                 Thread.sleep(DELAY_MS);
             } catch (InterruptedException e) {
                 e.printStackTrace();

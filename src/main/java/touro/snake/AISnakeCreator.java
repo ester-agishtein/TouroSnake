@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.Random;
 
-public class AIKeyListener{
+public class AISnakeCreator {
     private final Snake aiSnake;
     private final Random rand = new Random();
     private static final int DELAY_MS = 80;
-    public AIKeyListener(Snake aiSnake) throws InterruptedException
+    public AISnakeCreator(Snake aiSnake) throws InterruptedException
     {
         this.aiSnake = aiSnake;
         moveSelf(aiSnake);
