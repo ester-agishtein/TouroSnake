@@ -131,7 +131,7 @@ public class SnakeTest {
     public void inBounds_false() {
         //given
         SnakeHeadStateMachine snakeHeadStateMachine = mock(SnakeHeadStateMachine.class);
-        Snake snake = new Snake(snakeHeadStateMachine);
+        Snake snake = mock(Snake.class);
         //when
         //number of iterations to be determined
         for (int i = 0; i < 100; i++) {

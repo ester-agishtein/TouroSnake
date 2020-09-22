@@ -7,7 +7,7 @@ import static org.mockito.Mockito.*;
 public class GardenTest {
 
     @Test
-    public void moveSnake() {
+    public void moveSnake() throws InterruptedException {
         /*
         Tests that snake moves and that when snake's move does not result
         in death.
@@ -23,12 +23,12 @@ public class GardenTest {
         doReturn(square).when(snake).getHead();
 
         //when and then
-        assertTrue(garden.moveSnake());
+        assertTrue(garden.moveSnake(snake));
         verify(snake).move();
     }
 
     @Test
-    public void createFoodIfNecessary() {
+    public void createFoodIfNecessary() throws InterruptedException {
 
         //given
         Snake snake = mock(Snake.class);

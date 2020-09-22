@@ -46,6 +46,14 @@ public class Garden {
         return false;
     }
 
+    public boolean aiAdvance(Snake snake) {
+        this.eatFood(snake);
+        this.createFoodIfNecessary();
+        //This is a boolean for now so as to fit with the garden thread conditional
+        return true;
+    }
+
+
     /**
      * Moves the Snake, eats the Food or collides with the wall (edges of the Garden), or eats self.
      *
@@ -59,6 +67,12 @@ public class Garden {
             return false;
         }
 
+        this.eatFood(snake);
+
+        return true;
+    }
+
+    public void eatFood(Snake snake){
         //if snake eats the food
         if (snake.getHead().equals(food)) {
             //add square to snake
@@ -66,10 +80,7 @@ public class Garden {
             //remove food
             food = null;
         }
-
-        return true;
     }
-
     /**
      * Creates a Food if there isn't one, making sure it's not already on a Square occupied by the Snake.
      */
