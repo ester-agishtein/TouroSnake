@@ -18,7 +18,7 @@ public class Garden {
         this.snake = snake;
         this.foodFactory = foodFactory;
         this.aiSnake = aiSnake;
-
+        AIKeyListener aiKeyListener = new AIKeyListener(aiSnake);
     }
 
     public Snake getSnake() {

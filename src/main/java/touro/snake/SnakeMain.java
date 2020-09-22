@@ -14,7 +14,7 @@ public class SnakeMain {
 
         SnakeHeadStateMachine aiSnakeHeadStateMachine = new SnakeHeadStateMachine(Direction.East);
         Snake aiSnake = new Snake(aiSnakeHeadStateMachine);
-        AIKeyListener aiKeyListener = new AIKeyListener(aiSnake);
+
 
         Garden garden = new Garden(snake, aiSnake, foodFactory);
         GardenView gardenView = new GardenView(garden);
@@ -23,7 +23,7 @@ public class SnakeMain {
         GardenThread thread = new GardenThread(garden, gardenView);
         thread.start();
 
-        new SnakeFrame(gardenView, snakeKeyListener, aiKeyListener).setVisible(true);
+        new SnakeFrame(gardenView, snakeKeyListener).setVisible(true);
     }
 
 }

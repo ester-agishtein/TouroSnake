@@ -8,8 +8,8 @@ public class SnakeFrame extends JFrame {
 
     public SnakeFrame(
             GardenView gardenView,
-            SnakeKeyListener snakeKeyListener,
-            AIKeyListener aiKeyListener
+            SnakeKeyListener snakeKeyListener
+
 
     ) throws HeadlessException {
         super();
@@ -21,6 +21,6 @@ public class SnakeFrame extends JFrame {
 
         add(gardenView, BorderLayout.CENTER);
         addKeyListener(snakeKeyListener);
-        addKeyListener(aiKeyListener);
+
     }
 }
