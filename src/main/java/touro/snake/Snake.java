@@ -1,6 +1,8 @@
 package touro.snake;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import static touro.snake.Direction.*;
@@ -132,6 +134,27 @@ public class Snake {
         return false;
     }
 
+    public HashMap<Integer, Integer> CoordSnapShot(Snake snake){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(Square sqr: getSquares()){
+            map.put(sqr.getX(),sqr.getY());
+        }
+        return map;
+    }
+    public boolean hitSnake(Snake otherSnake) {
+        HashMap<Integer, Integer> firstMap = CoordSnapShot(this);
+        HashMap<Integer, Integer> secMap = CoordSnapShot(otherSnake);
+        System.out.println("firstMap = " + firstMap.toString());
+        System.out.println("secMap = " + secMap.toString());
+        for(int key: firstMap.keySet()){
+            int value = firstMap.get(key);
+            if(secMap.containsKey(key) && secMap.get(key) == value){
+                System.out.println("hit");
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean getGrow() {
         return grow;

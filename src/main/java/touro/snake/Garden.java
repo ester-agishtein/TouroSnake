@@ -12,13 +12,12 @@ public class Garden {
     private final Snake snake;
     private final FoodFactory foodFactory;
     private Food food;
-    private final Snake aiSnake;
+    public AutomateSnake automateSnake = new AutomateSnake();
+    private Snake aiSnake = automateSnake.getAiSnake();
 
-    public Garden(Snake snake, Snake aiSnake, FoodFactory foodFactory) throws InterruptedException {
+    public Garden(Snake snake, FoodFactory foodFactory){
         this.snake = snake;
         this.foodFactory = foodFactory;
-        this.aiSnake = aiSnake;
-        AISnakeCreator aiSnakeCreator = new AISnakeCreator(aiSnake);
     }
 
     public Snake getSnake() {
@@ -44,14 +43,9 @@ public class Garden {
             return true;
         }
         return false;
+
     }
 
-    public boolean aiAdvance(Snake snake) {
-        this.eatFood(snake);
-        this.createFoodIfNecessary();
-        //This is a boolean for now so as to fit with the garden thread conditional
-        return true;
-    }
 
 
     /**
@@ -63,7 +57,8 @@ public class Garden {
         snake.move();
 
         //if collides with wall or self
-        if (!snake.inBounds() || snake.eatsSelf()) {
+        if (!snake.inBounds() || snake.eatsSelf() || snake.hitSnake(aiSnake))
+        {
             return false;
         }
 

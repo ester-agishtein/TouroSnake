@@ -12,11 +12,8 @@ public class SnakeMain {
         Snake snake = new Snake(snakeHeadStateMachine);
         FoodFactory foodFactory = new FoodFactory();
 
-        SnakeHeadStateMachine aiSnakeHeadStateMachine = new SnakeHeadStateMachine(Direction.East);
-        Snake aiSnake = new Snake(aiSnakeHeadStateMachine);
 
-
-        Garden garden = new Garden(snake, aiSnake, foodFactory);
+        Garden garden = new Garden(snake, foodFactory);
         GardenView gardenView = new GardenView(garden);
         SnakeKeyListener snakeKeyListener = new SnakeKeyListener(snake);
 

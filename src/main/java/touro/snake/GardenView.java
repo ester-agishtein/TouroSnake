@@ -22,7 +22,6 @@ public class GardenView extends JComponent {
     }
 
     void paintGrass(Graphics g) {
-        // Berger
         g.setColor(Color.GREEN);
         g.fillRect(0, 0, getWidth(), getHeight());
     }
@@ -34,9 +33,11 @@ public class GardenView extends JComponent {
         }
     }
     void paintAISnake(Graphics g) {
-        g.setColor(Color.WHITE);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.translate(50,50);
+        g2d.setColor(Color.WHITE);
         for (Square s : garden.getAiSnake().getSquares()) {
-            g.fillRect(s.getX()*CELL_SIZE, s.getY()*CELL_SIZE, CELL_SIZE, CELL_SIZE);
+            g2d.fillRect(s.getX()*CELL_SIZE, s.getY()*CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }
     }
     void paintFood(Graphics g) {
