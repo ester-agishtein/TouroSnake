@@ -21,13 +21,16 @@ public class AStarStrategy implements SnakeStrategy {
                 else isReady = true;
             }
             Node endNode = new Node(garden.getFood());
+            System.out.println("endNode = "+  endNode);
+            createPath(startNode, endNode);
 
-        ArrayList<Node> path = createPath(startNode, endNode);
-        System.out.println("path = "+ path);
+        //I think I'm misunderstanding something here. My path doesn't actually return anything. I think I need to change the snake in place somehow but can't figure that out.
+        //Here is my theortical algortithem
+
 
     }
 
-    public ArrayList<Node> createPath(Node startNode, Node endNode){
+    public void createPath(Node startNode, Node endNode){
         //        Create start and end node
         ArrayList<Node> path = new ArrayList<>();
 
@@ -52,38 +55,53 @@ public class AStarStrategy implements SnakeStrategy {
                     currentIndex = index;
                 }
             }
-
+            System.out.println("currentNode = " + currentNode);
 //        Pop current off open list, add to closed list
             openList.remove(currentIndex);
             closedList.add(currentNode);
 
 //        Found the goal
-
+            System.out.println("current Node = " + currentNode.getX() + " : " + currentNode.getY());
+            System.out.println("end Node = " + endNode.getX() + " : " + endNode.getY());
             if( currentNode == endNode) {
                 Node current;
                 current = currentNode;
                 while (current != null) {
+                    System.out.println("current  = " + current);
                     path.add(current);
+                    //Why is this returning blanks???
+                    //its never reaching the goal....
+                    System.out.println("Path after current added = " + path);
                     current = currentNode.getParent();
-
                 }
-                path = reverseArrayList(path);
             }
+            System.out.println("reverse path = " + path);
+            path = reverseArrayList(path);
 //        Generate children
             ArrayList<Node> children = new ArrayList<>();
-            ArrayList<Node> neighbors = findNeighbors();
+            HashMap<Direction,Node> directionNodeHashMap = findNeighbors();
 
-//            Get node position
-            for(int index = 0; index<neighbors.size(); index++) {
-                Node newNodePos = new Node(currentNode.getX() + neighbors.get(index).getX(), currentNode.getY() +  neighbors.get(index).getY());
-
+            Node newNodePos = new Node(currentNode);
+            for(Node neighbor: directionNodeHashMap.values()){
+                if(neighbor.getCost() < newNodePos.getCost()){
+                    newNodePos = neighbor;
+                    Direction direction = Direction.North;
+                    for(Map.Entry<Direction, Node> entry : directionNodeHashMap.entrySet()){
+                        if(entry.getValue().equals(newNodePos)){
+                            direction = entry.getKey();
+                        }
+                    }
+                    snake.turnTo(direction);
+                }
+            }
+            System.out.println("newNodePos = " + newNodePos.getX() + " : " + newNodePos.getY());
 //            Make sure within range
                 if (!newNodePos.inBounds()) continue;
 
 
 //            Append
                 children.add(newNodePos);
-            }
+                System.out.println("children = " + children.toString());
 //        Loop through children
             for(Node child : children) {
 
@@ -102,10 +120,12 @@ public class AStarStrategy implements SnakeStrategy {
                 }
 //            Add the child to the open list
                 openList.add(child);
+                System.out.println("openList = " + openList);
             }
+            System.out.println("path in function = "+ path);
+
         }
 
-        return  path;
     }
     public ArrayList<Node> reverseArrayList(ArrayList<Node> alist)
     {
@@ -121,30 +141,27 @@ public class AStarStrategy implements SnakeStrategy {
         return revArrayList;
     }
 
-    public ArrayList<Node> findNeighbors(){
+    public HashMap<Direction,Node> findNeighbors(){
 
+        HashMap<Direction,Node> directionNodeHashMap = new HashMap<>();
 
         Node left = new Node(-1,-0);
         Node right = new Node(1,0);
         Node up = new Node(0,1);
         Node down = new Node(0,-1);
+
+        //I don't know what to do with these fellas but I feel they're important.
         Node diDownLeft = new Node(-1,-1);
         Node diDownRight = new Node(-1, 1);
         Node diUpLeft = new Node(1, -1);
         Node diUpRight = new Node(1, 1);
 
+        directionNodeHashMap.put(Direction.West, left);
+        directionNodeHashMap.put(Direction.East, right);
+        directionNodeHashMap.put(Direction.North, up);
+        directionNodeHashMap.put(Direction.South, down);
 
-        ArrayList<Node> neighbors = new ArrayList<>();
-        neighbors.add(left);
-        neighbors.add(right);
-        neighbors.add(up);
-        neighbors.add(down);
-        neighbors.add(diDownLeft);
-        neighbors.add(diDownRight);
-        neighbors.add(diUpLeft);
-        neighbors.add(diUpRight);
-
-        return neighbors;
+        return directionNodeHashMap;
     }
 }
 
