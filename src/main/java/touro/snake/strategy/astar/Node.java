@@ -1,6 +1,7 @@
 package touro.snake.strategy.astar;
 
-import touro.snake.Square;
+import touro.snake.*;
+import touro.snake.strategy.SnakeStrategy;
 
 /**
  * A Node used in the AStar algorithm
@@ -41,5 +42,7 @@ public class Node extends Square {
     public double getCost() {
         return fromStart * 7 + fromEnd;
     }
+
+
 
 }
