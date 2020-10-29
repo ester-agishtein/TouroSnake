@@ -29,6 +29,7 @@ public class GardenView extends JComponent {
             int y = s.getY() * CELL_SIZE;
             g.fillRect(x, y, CELL_SIZE, CELL_SIZE);
         }
+
     }
     void paintGrass(Graphics g) {
         g.setColor(Color.GREEN);

@@ -12,7 +12,7 @@ public class AStarStrategy implements SnakeStrategy {
     private Garden garden;
     private Direction directions[];
     private Food food;
-    private boolean mealAchieved;
+    private boolean mealAchieved = false;
 
     List<Node> snakePath = new ArrayList<>();
     @Override
@@ -22,7 +22,6 @@ public class AStarStrategy implements SnakeStrategy {
         this.head = snake.getHead();
         this.food = garden.getFood();
         this.directions =  Direction.values();
-        this.mealAchieved = false;
 
         if (food == null) {
             return;
@@ -44,7 +43,6 @@ public class AStarStrategy implements SnakeStrategy {
 
             if (current.equals(food)) {
                 this.moveToFood(current);
-                this.getSearchSpace();
                 break;
             }
             else {
@@ -54,30 +52,29 @@ public class AStarStrategy implements SnakeStrategy {
     }
 
 
-
     @Override
     public List<Square> getSearchSpace() {
-        List<Square> squareList = new ArrayList<>();
-        if(this.mealAchieved){
+        if (head.equals(food)) {
             snakePath.clear();
-            this.mealAchieved = false;
         }
-        else {
-            for (Iterator<Node> iterator = snakePath.iterator(); iterator.hasNext(); ) {
-                Node nextNode = iterator.next();
-                if (snake.contains(nextNode)) {
-                    continue;
-                }
-                if(food.equals(nextNode)){
-                    continue;
-                }
+        return getMarkedPath(snakePath);
+    }
 
-                Square sqr = new Square(nextNode);
-                squareList.add(sqr);
+    private List<Square> getMarkedPath(List<Node> path){
+        List<Square> currPath = new ArrayList<>();
+        for (Iterator<Node> iterator = path.iterator(); iterator.hasNext(); ) {
+            Node nextNode = iterator.next();
+            if (snake.contains(nextNode)) {
+                continue;
             }
-        }
+            if(food.equals(nextNode)){
+                continue;
+            }
 
-        return squareList;
+            Square sqr = new Square(nextNode);
+            currPath.add(sqr);
+        }
+        return currPath;
     }
 
 
@@ -99,11 +96,10 @@ public class AStarStrategy implements SnakeStrategy {
 
     public void moveToFood(Node current){
         // TODO: we need to turn the snake with the correct path
-//        mealAchieved = true;
+
         Node firstChild = getFirstChild(head, current);
         Direction direction = head.directionTo(firstChild);
         snake.turnTo(direction);
-
     }
 
     public List<Node> findPath (List<Node> open,List<Node> closed, Node current){
