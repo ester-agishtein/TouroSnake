@@ -32,7 +32,7 @@ public class Node extends Square {
 
     private void setParent(Node parent) {
         this.parent = parent;
-        fromStart = (parent.fromStart+1) ;
+        fromStart = (parent.fromStart + 1);
     }
 
     private void setEnd(Square square) {
@@ -42,7 +42,4 @@ public class Node extends Square {
     public double getCost() {
         return fromStart * 7 + fromEnd;
     }
-
-
-
 }
