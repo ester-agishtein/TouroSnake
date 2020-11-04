@@ -47,5 +47,5 @@ public class Node extends Square {
     public String toString() {
         return String.format("Node{%d, %d = %f}", getX(), getY(), getCost());
     }
-}
 
+}
